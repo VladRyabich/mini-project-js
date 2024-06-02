@@ -1,7 +1,17 @@
-const userSection = document.createElement('section');
-userSection.id = 'user-details-container';
-userSection.classList.add('user-section');
+// const container = document.createElement('div');
+// container.classList.add('container');
+// document.body.appendChild(container);
+//
+// const userSection = document.createElement('section');
+// userSection.id = 'user-section';
+// userSection.classList.add('user-section');
+// container.appendChild(userSection);
+
+const userSection = document.getElementById('userSection');
 document.body.appendChild(userSection);
+
+const userDetails = document.getElementById('userDetails');
+userSection.appendChild(userDetails);
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -10,67 +20,101 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(`https://jsonplaceholder.typicode.com/users/${idUser}`)
         .then(response => response.json())
         .then(user => {
-            const userSection = document.getElementById('user-details-container');
+            const heroTitle = document.createElement('h1');
+            heroTitle.classList.add('hero-title');
+            heroTitle.innerHTML = `User Details: <span class="hero-name">${user.name}</span>`;
+
+            const userContainer = document.getElementById('userDetails');
             const userBlock = document.createElement('ul');
             userBlock.classList.add('user-block');
             userBlock.innerHTML = ` <li class="user-info">
                                         <h2 class="user-info-title">ID:</h2>
-                                        <p>${user.id}</p>
+                                        <p class="user-info-text">${user.id}</p>
                                     </li>
                                     <li class="user-info">
                                         <h2 class="user-info-title">Name:</h2>
-                                        <p>${user.name}</p>
+                                        <p class="user-info-text">${user.name}</p>
                                     </li>
                                     <li class="user-info">
                                         <h2 class="user-info-title">Username:</h2>
-                                        <p>${user.username}</p>
+                                        <p class="user-info-text">${user.username}</p>
                                     </li>
                                     <li class="user-info">
                                         <h2 class="user-info-title">Email:</h2>
-                                        <p>${user.email}</p>
+                                        <p class="user-info-text">${user.email}</p>
                                     </li>
                                     <li class="user-info">
-                                        <h2 class="user-info-title">Address:</h2>
-                                        <p>${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}</p>
-                                        <div class="addres-geo-wrapper">
-                                            <h3>address.geo.lat:</h3>
-                                            <p>${user.address.geo.lat}</p>
-                                            <h3>address.geo.lng:</h3>
-                                            <p>${user.address.geo.lng}</p>
-                                        </div>
+                                        <h2 class="user-info-title">Street:</h2>
+                                        <p class="user-info-text">${user.address.street}</p>
+                                    </li>
+                                    <li class="user-info">
+                                        <h2 class="user-info-title">Suite:</h2>
+                                        <p class="user-info-text">${user.address.suite}</p>
+                                    </li>
+                                    <li class="user-info">
+                                        <h2 class="user-info-title">City:</h2>
+                                        <p class="user-info-text">${user.address.city}</p>
+                                    </li>
+                                    <li class="user-info">
+                                        <h2 class="user-info-title">Zipcode:</h2>
+                                        <p class="user-info-text">${user.address.zipcode}</p>
+                                    </li>
+                                    <li class="user-info">
+                                        <h2 class="user-info-title">Geodate latitude:</h2>
+                                        <p class="user-info-text">${user.address.geo.lat}</p>
+                                    </li>
+                                    <li class="user-info">
+                                        <h2 class="user-info-title">Geodate longitude:</h2>
+                                        <p class="user-info-text">${user.address.geo.lng}</p>
                                     </li>
                                     <li class="user-info">
                                         <h2 class="user-info-title">Phone:</h2>
-                                        <p>${user.phone}</p>
+                                        <p class="user-info-text">${user.phone}</p>
                                     </li>
                                     <li class="user-info">
                                         <h2 class="user-info-title">Website:</h2>
-                                        <p>${user.website}</p>
+                                        <p class="user-info-text">${user.website}</p>
                                     </li>
                                     <li class="user-info">
-                                        <h2 class="user-info-title">Company:</h2>
-                                        <p>${user.company.name}</p>
+                                        <h2 class="user-info-title">Company name:</h2>
+                                        <p class="user-info-text">${user.company.name}</p>
                                     </li>
-                                    <button class="posts-btn" id="posts-btn">post of current user</button>`
+                                    <li class="user-info">
+                                        <h2 class="user-info-title">Company catchphrase:</h2>
+                                        <p class="user-info-text">${user.company.catchPhrase}</p>
+                                    </li>
+                                    <li class="user-info">
+                                        <h2 class="user-info-title">Company business:</h2>
+                                        <p class="user-info-text">${user.company.bs}</p>
+                                    </li>`
+
+            const btnWrapper = document.createElement('div');
+            btnWrapper.classList.add('btn-wrapper');
+
+            const postBtn = document.createElement('button');
+            postBtn.id = 'post-btn';
+            postBtn.innerText = 'post of current user';
+            postBtn.classList.add('btn', 'post-btn');
+            btnWrapper.appendChild(postBtn);
 
             const postList = document.createElement('ul');
-            postList.id = 'posts-container';
-            userSection.append(userBlock, postList);
+            postList.id = 'post-list';
+            postList.classList.add('post-list');
+            userContainer.append(heroTitle, userBlock, btnWrapper, postList);
 
-            document.getElementById('posts-btn').addEventListener('click', () => {
+            document.getElementById('post-btn').addEventListener('click', () => {
                 fetch(`https://jsonplaceholder.typicode.com/users/${user.id}/posts`)
                     .then(response => response.json())
                     .then(posts => {
-                        const postsContainer = document.getElementById('posts-container');
-                        postsContainer.innerHTML = '';
+                        const postContainer = document.getElementById('post-list');
+                        postContainer.innerHTML = '';
                         posts.forEach(post => {
                             const postBlock = document.createElement('li');
-                            postBlock.classList.add('post-block');
+                            postBlock.classList.add('post-item');
                             postBlock.innerHTML = `
-                                <p class="comment-text">${post.title}</p>
-                                <a class="post-details-btn" href="post-details.html?id=${post.id}">View Post Details</a>
-                            `;
-                            postsContainer.appendChild(postBlock);
+                                <h2 class="post-title">${post.title}</h2>
+                                <a class="btn post-details-btn" href="post-details.html?id=${post.id}">View Post Details</a>`;
+                            postContainer.appendChild(postBlock);
                         });
                     });
             });

@@ -1,11 +1,13 @@
-const heroTitle = document.createElement('h1');
-heroTitle.classList.add('hero-title');
-heroTitle.innerText = 'Users';
+const usersSection = document.getElementById('usersSection');
+document.body.appendChild(usersSection)
+
+const container = document.getElementById('usersContainer');
+usersSection.appendChild(container);
 
 const userList = document.createElement('ul');
 userList.id = 'user-list';
 userList.classList.add('user-list');
-document.body.append(heroTitle, userList);
+container.appendChild(userList);
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('https://jsonplaceholder.typicode.com/users')
@@ -15,11 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
             users.forEach(user => {
                 const userItem = document.createElement('li');
                 userItem.classList.add('user-item');
-                userItem.innerHTML = `
-                    <h2 class="id-title">ID: ${user.id}</h2>
-                    <h3 class="name-title">Name: ${user.name}</h3>
-                    <a class="user-details-btn" href="user-details.html?id=${user.id}">User Details</a>
-                `;
+                userItem.innerHTML = `  <p class="card-info"><span class="card-title">ID: </span>${user.id}</>
+                                        <p class="card-info"><span class="card-title">Name: </span>${user.name}</p>
+                                        <a class="btn" href="user-details.html?id=${user.id}">User Details</a>`;
                 userList.appendChild(userItem);
             });
         });
