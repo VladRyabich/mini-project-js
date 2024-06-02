@@ -1,12 +1,3 @@
-// const container = document.createElement('div');
-// container.classList.add('container');
-// document.body.appendChild(container);
-//
-// const userSection = document.createElement('section');
-// userSection.id = 'user-section';
-// userSection.classList.add('user-section');
-// container.appendChild(userSection);
-
 const userSection = document.getElementById('userSection');
 document.body.appendChild(userSection);
 
@@ -118,5 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     });
             });
+
+            const backPageWrapper = document.createElement('div');
+            backPageWrapper.classList.add('back-page-wrapper');
+            userDetails.appendChild(backPageWrapper);
+
+            const backPage = document.createElement('a');
+            backPage.innerHTML = `<a class="btn" onclick="history.back(); return false;">Back</a>`
+            backPageWrapper.appendChild(backPage);
         });
 });

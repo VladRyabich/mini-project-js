@@ -1,7 +1,3 @@
-// const postSection = document.createElement('section');
-// postSection.id = 'post-section';
-// postSection.classList.add('post-section');
-// document.body.appendChild(postSection);
 const postSection = document.getElementById('postSection');
 document.body.appendChild(postSection);
 
@@ -52,6 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         commentsList.appendChild(commentItem);
                     });
                     container.appendChild(commentsList);
+
+
+                    const backPageWrapper = document.createElement('div');
+                    backPageWrapper.classList.add('back-page-wrapper');
+                    container.appendChild(backPageWrapper);
+
+                    const backPage = document.createElement('a');
+                    backPage.innerHTML = `<a class="btn" onclick="history.back(); return false;">Back</a>`;
+                    backPageWrapper.appendChild(backPage);
                 });
         });
 });
