@@ -52,11 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const backPageWrapper = document.createElement('div');
                     backPageWrapper.classList.add('back-page-wrapper');
+                    backPageWrapper.innerHTML = `<a class="btn" onclick="history.back(); return false;">Back</a>`;
                     container.appendChild(backPageWrapper);
-
-                    const backPage = document.createElement('a');
-                    backPage.innerHTML = `<a class="btn" onclick="history.back(); return false;">Back</a>`;
-                    backPageWrapper.appendChild(backPage);
                 });
         });
 });
